@@ -1,0 +1,50 @@
+No es estrictamente necesario renombrar los archivos con extensión .mon a .f90, pero deberás indicar al compilador que trate estos archivos como código Fortran. La mayoría de los compiladores Fortran, incluyendo ifort, asumen por defecto que los archivos con extensiones .f90 y .f contienen código Fortran, pero puedes forzar al compilador a tratar cualquier archivo como código Fortran usando opciones específicas.
+
+Para compilar archivos con extensiones no estándar, puedes especificar el lenguaje de programación utilizando la opción -Tf con ifort. Aquí tienes un ejemplo de cómo hacerlo:
+
+Paso 1: Compilar el módulo
+Primero, compila el archivo del módulo modulo.mon:
+
+sh
+Copiar código
+ifort -Tf modulo.mon -c -o modulo.o
+Paso 2: Compilar el programa
+Luego, compila el archivo del programa programa.f90 que usa el módulo:
+
+sh
+Copiar código
+ifort -Tf programa.f90 -c -o programa.o
+Paso 3: Enlazar los archivos objeto
+Finalmente, enlaza los archivos objeto para crear el ejecutable:
+
+sh
+Copiar código
+ifort -o programa.exe modulo.o programa.o
+Todo en un solo paso
+También puedes compilar y enlazar todo en un solo paso:
+
+sh
+Copiar código
+ifort -Tf modulo.mon -Tf programa.f90 -o programa.exe
+Resumen de comandos
+Compilar el módulo:
+
+sh
+Copiar código
+ifort -Tf modulo.mon -c -o modulo.o
+Compilar el programa:
+
+sh
+Copiar código
+ifort -Tf programa.f90 -c -o programa.o
+Enlazar los archivos objeto:
+
+sh
+Copiar código
+ifort -o programa.exe modulo.o programa.o
+O todo en un solo paso:
+
+sh
+Copiar código
+ifort -Tf modulo.mon -Tf programa.f90 -o programa.exe
+Esto debería permitirte compilar y enlazar tu programa Fortran sin necesidad de renombrar los archivos .mon a .f90.

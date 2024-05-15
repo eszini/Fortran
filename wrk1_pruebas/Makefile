@@ -1,5 +1,7 @@
 COMPILER=ifort
 
+SOURCEDIR  = ../src
+
 COMPILER_OPT_ARGS=-diag-disable=10448
 
 
@@ -21,7 +23,7 @@ pfunc:	pfunc.for
 
 
 # COMPILER=lf95.exe
-# OBJS = AA_OBJT.obj ABBCapacityMarketRept.obj Abb_CapMarketRptData.obj ANDECOMP.obj bfil_obj.obj CapacityOptionsFileResourceIndexes.obj capacity_arrays.obj capacity_options_alloc_vars.obj capacity_options_fixed_variables.obj CAP_OBJT.obj CAT2OBJT.obj CATAWBA.obj CF_OBJT.obj Cla_objt.obj cla_objt_arrays.obj CLM_OBJT.obj CLOSFILE.obj Clreport.obj clreport_routines.obj Cls_runs.obj cnwmsubs.obj CN_OBJT.obj co2_cap_n_trade.obj co2_market_abatement_curves.obj coal_main_prg.obj Coal_Model_Modules.obj coal_modules_makeovl.obj COAL_VECTOR_OBJ.obj CO_OBJT.obj CPL_OBJT.obj ct_objt.obj DE_OBJT.obj DR_BOOTH.obj dr_both2.obj DSM_OBJT.obj Dsscreen.obj DSSLAM.obj ECONINTR.obj EC_OBJT.obj ELREPORT.obj el_objt.obj end_routine.obj enrglimt.obj en_objt.obj Errormsg.obj esrn_obj.obj facalg.obj FC_OBJT.obj FE_OBJT.obj filemod.obj filename_tracker.obj FINACELM.obj finaclp2.obj finanbse.obj findovls.obj FINNUCFL.obj FI_OBJT.obj FN_OBJT.obj FP_OBJT.obj ft_interfaces.obj FUELUSED.obj gas_objt.obj GRXModules.obj grx_planning_routines.obj icap_results.obj interg82.obj IN_OBJT.obj LDPROB01.obj LMG_OBJT.obj logging.obj LPMatinv.obj lpsolver.obj mainovl.obj MARGNOBJ.obj MIDASMOD.obj MIDASXP.obj miscmod.obj modules.obj MSGANDEC.obj msgindex.obj msgmmadm.obj msgmmasb.obj msgmmcom.obj msgmmdbt.obj msgmmdfd.obj msgmmea.obj MSGMMExpRevCash.obj msgmmfa.obj msgmmfv.obj Msgmminp.obj MSGMMOUT.obj msgmmpyb.obj Msgmmrev.obj msgmmsb6.obj MSGMMSB6B.obj msgmmtax.obj msgnorm.obj msgold95rw.obj MSGOUTPT.obj MSGProSymRevExp.obj newfred2.obj NEWPKSHF.obj newton_interface.obj OBJTFUNC.obj params.obj PF_OBJT.obj PICADISP.obj PN_OBJT.obj POSTFIX.obj pp_objt.obj prim_mover_idx.obj PRO_COST.obj RDI_OBJT.obj REAENRG.obj  RPTH_OBJ.obj RptRecControl.obj Servicac.obj SF_OBJT.obj SNSZMDS.obj spindriftlib.obj spinfunc.obj STARTOVL.obj tf_objt.obj TF_OBJT2.obj transobj.obj TRANSOBJ2.obj TRNSFRM3.obj UP_OBJT.obj wh_objt.obj WVPACoopRevenueCals.obj WVPARTRK.obj WVPA_DATA_BASES.obj Dsex_obj.obj MIDASFileIndexingRoutines.obj procost_data.obj escalation_variables.obj screen_initialization.obj clreport_decs.obj fuel_types.obj pms.obj startup_tasks.obj logging_decs.obj annlcommon.obj midas_decs.obj cl_data.obj mmrev_decs.obj esrn_decs.obj tran_c_variables.obj cla_decs.obj fuelused_decs.obj dsex_data.obj kepcocom.obj string.obj
+# OBJS = AA_OBJT.obj ABBCapacityMarketRept.obj 
 # SOURCEDIR  = ../ABBICAP
 # # MARSHALL_SOURCEDIR=../ABBICAP/midas_extend/src
 # 

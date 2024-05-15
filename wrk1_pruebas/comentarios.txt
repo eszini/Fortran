@@ -1,0 +1,9 @@
+c
+c
+c
+c	prueba de include
+c	no es lo mejor para hacer en fortran
+c	pero bueh
+c
+c
+

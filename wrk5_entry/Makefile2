@@ -1,0 +1,34 @@
+
+
+# Variables
+FC = ifort
+EXEC = dr_booth
+
+# Fuentes
+MOD_SRCS = shared_variables.f90 energy_calculations.f90
+MAIN_SRCS = dr_booth.f90
+
+# Objetos
+MOD_OBJS = $(MOD_SRCS:.f90=.o)
+MAIN_OBJS = $(MAIN_SRCS:.f90=.o)
+
+# Reglas
+all: $(EXEC)
+
+$(EXEC): $(MOD_OBJS) $(MAIN_OBJS)
+	$(FC) -o $@ $(MOD_OBJS) $(MAIN_OBJS)
+
+# Regla para compilar módulos
+$(MOD_OBJS): %.o: %.f90
+	$(FC) -c $<
+
+# Regla para compilar el programa principal
+$(MAIN_OBJS): %.o: %.f90
+	$(FC) -c $<
+
+clean:
+	rm -f $(MOD_OBJS) $(MAIN_OBJS) $(EXEC) *.mod
+
+.PHONY: all clean
+
+

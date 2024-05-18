@@ -1,0 +1,62 @@
+
+
+Sí, en Fortran el orden de compilación de los archivos fuente puede ser importante, especialmente cuando se utilizan módulos. Los módulos deben ser compilados antes de los programas o subrutinas que los utilizan. En el Makefile anterior, aunque no especificamos explícitamente el orden, el compilador y el enlazador se encargan de resolver las dependencias si todo está en un único paso.
+
+Sin embargo, es una buena práctica y más eficiente especificar explícitamente el orden correcto de compilación en el Makefile. Por ejemplo, primero compilar los módulos y luego el programa principal. Aquí tienes una versión ajustada del Makefile que asegura que los módulos se compilan antes del programa principal:
+
+### Makefile Ajustado
+
+```Makefile
+# Variables
+FC = ifort
+EXEC = dr_booth
+
+# Fuentes
+MOD_SRCS = shared_variables.f90 energy_calculations.f90
+MAIN_SRCS = dr_booth.f90
+
+# Objetos
+MOD_OBJS = $(MOD_SRCS:.f90=.o)
+MAIN_OBJS = $(MAIN_SRCS:.f90=.o)
+
+# Reglas
+all: $(EXEC)
+
+$(EXEC): $(MOD_OBJS) $(MAIN_OBJS)
+	$(FC) -o $@ $(MOD_OBJS) $(MAIN_OBJS)
+
+# Regla para compilar módulos
+$(MOD_OBJS): %.o: %.f90
+	$(FC) -c $<
+
+# Regla para compilar el programa principal
+$(MAIN_OBJS): %.o: %.f90
+	$(FC) -c $<
+
+clean:
+	rm -f $(MOD_OBJS) $(MAIN_OBJS) $(EXEC) *.mod
+
+.PHONY: all clean
+```
+
+### Explicación de los cambios:
+
+1. **Variables Separadas para Fuentes y Objetos**:
+   - `MOD_SRCS` y `MAIN_SRCS` para separar las fuentes de los módulos y del programa principal.
+   - `MOD_OBJS` y `MAIN_OBJS` para separar los objetos de los módulos y del programa principal.
+
+2. **Reglas para Compilar por Separado**:
+   - `$(MOD_OBJS): %.o: %.f90`: Regla para compilar los módulos.
+   - `$(MAIN_OBJS): %.o: %.f90`: Regla para compilar el programa principal.
+
+3. **Orden Correcto en la Regla Principal**:
+   - `$(EXEC): $(MOD_OBJS) $(MAIN_OBJS)`: Asegura que los módulos se compilan antes del programa principal.
+
+### Cómo Usar el Makefile:
+
+1. Guarda el contenido del Makefile en un archivo llamado `Makefile` en el mismo directorio que tus archivos Fortran.
+2. Abre una terminal y navega hasta el directorio que contiene el Makefile.
+3. Ejecuta `make` para compilar tu proyecto.
+4. Ejecuta `make clean` para limpiar los archivos generados.
+
+Con este Makefile, aseguras que los módulos se compilen primero y que el programa principal se compile después, respetando las dependencias entre ellos.

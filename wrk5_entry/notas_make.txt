@@ -1,0 +1,59 @@
+Para compilar los programas `shared_variables.f90`, `energy_calculations.f90`, y `dr_booth.f90` utilizando `ifort`, puedes crear un Makefile como el siguiente. Este Makefile se asegura de compilar los módulos y los programas en el orden correcto, gestionando las dependencias adecuadamente.
+
+### Supuestos:
+
+- `shared_variables.f90` contiene el módulo `shared_variables`.
+- `energy_calculations.f90` contiene el módulo `energy_calculations` y/o la subrutina `calenrg`.
+- `dr_booth.f90` es el programa principal que usa los módulos `shared_variables` y `energy_calculations`.
+
+### Contenido del Makefile:
+
+```Makefile
+# Variables
+FC = ifort
+SRCS = shared_variables.f90 energy_calculations.f90 dr_booth.f90
+OBJS = $(SRCS:.f90=.o)
+EXEC = dr_booth
+
+# Reglas
+all: $(EXEC)
+
+$(EXEC): $(OBJS)
+	$(FC) -o $@ $(OBJS)
+
+%.o: %.f90
+	$(FC) -c $<
+
+clean:
+	rm -f $(OBJS) $(EXEC) *.mod
+
+.PHONY: all clean
+```
+
+### Explicación del Makefile:
+
+- `FC = ifort`: Define el compilador Fortran.
+- `SRCS = shared_variables.f90 energy_calculations.f90 dr_booth.f90`: Lista de archivos fuente.
+- `OBJS = $(SRCS:.f90=.o)`: Lista de archivos objeto correspondientes a los archivos fuente.
+- `EXEC = dr_booth`: Nombre del ejecutable final.
+
+#### Reglas:
+
+- `all: $(EXEC)`: La regla principal que se ejecuta cuando se invoca `make`. Depende del ejecutable `$(EXEC)`.
+- `$(EXEC): $(OBJS)`: Cómo construir el ejecutable a partir de los archivos objeto. Utiliza el compilador para enlazar los objetos.
+- `%.o: %.f90`: Cómo construir cada archivo objeto a partir de su correspondiente archivo fuente.
+- `clean`: Regla para limpiar los archivos objeto, el ejecutable y los archivos de módulos generados por el compilador.
+- `.PHONY: all clean`: Indica que `all` y `clean` no son archivos, sino nombres de reglas.
+
+### Cómo Usar el Makefile:
+
+1. Guarda el contenido del Makefile en un archivo llamado `Makefile` en el mismo directorio que tus archivos Fortran (`shared_variables.f90`, `energy_calculations.f90`, y `dr_booth.f90`).
+2. Abre una terminal y navega hasta el directorio que contiene el Makefile.
+3. Ejecuta `make` para compilar tu proyecto.
+4. Ejecuta `make clean` para limpiar los archivos generados.
+
+### Notas:
+
+- Este Makefile asume que los archivos `.f90` están en el mismo directorio que el Makefile. Si están en diferentes directorios, tendrás que ajustar las rutas en las variables `SRCS` y `OBJS`.
+- Si tienes dependencias más complejas o necesitas especificar el orden de compilación, puedes ajustar las reglas en consecuencia.
+
